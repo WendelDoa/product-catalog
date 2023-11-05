@@ -18,7 +18,7 @@ public class MainSystemGUI extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
         setResizable(false);
-        GridLayout gridLayout = new GridLayout(6, 1);
+        GridLayout gridLayout = new GridLayout(7, 1);
         setLayout(gridLayout);
         SwingUtilities.invokeLater(() -> {
             if(!messageInitial) {
@@ -27,7 +27,8 @@ public class MainSystemGUI extends JFrame {
                 messageInitial = true;
             }
         });
-        addButtonFn("Product catalog", e -> productCatalog());
+        addButtonFn("Product catalog", e -> new ProductCatalogGUI(mainSystem));
+        addButtonFn("Search for product", e -> new SearchForProductGUI(mainSystem));
         addButtonFn("Register product", e -> registerProduct());
         addButtonFn("Update product", e -> updateProduct());
         addButtonFn("Delete product", e -> deleteProduct());
@@ -42,11 +43,6 @@ public class MainSystemGUI extends JFrame {
         JButton button = new JButton(label);
         button.addActionListener(event);
         add(button);
-    }
-
-    private void productCatalog() {
-        ProductCatalogGUI productCatalogGUI = new ProductCatalogGUI(mainSystem);
-        productCatalogGUI.setVisible(true);
     }
 
     private void registerProduct() {

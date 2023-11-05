@@ -2,18 +2,20 @@ package ProductCatalog.System;
 
 import javax.swing.table.AbstractTableModel;
 
-public class CatalogTableModel extends AbstractTableModel {
+public class ProductsSearchTableModel extends AbstractTableModel {
 
     private final String[] columns = {"Id", "Name", "Type", "Price"};
     private final LogicalSystem mainSystem;
+    private final String text;
 
-    public CatalogTableModel(LogicalSystem mainSystem) {
+    public ProductsSearchTableModel(LogicalSystem mainSystem, String text) {
         this.mainSystem = mainSystem;
+        this.text = text;
     }
 
     @Override
     public int getRowCount() {
-        return mainSystem.searchAllProducts().size();
+        return mainSystem.searchProductWithName(text).size();
     }
 
     @Override
@@ -28,7 +30,7 @@ public class CatalogTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Product product = mainSystem.searchAllProducts().get(rowIndex + 1); // IDs começam em 1
+        Product product = mainSystem.searchProductWithName(text).get(rowIndex + 1); // IDs começam em 1
 
         return switch (columnIndex) {
             case 0 -> product.getId();

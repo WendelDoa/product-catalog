@@ -4,13 +4,13 @@ public class Product {
 
     private int id;
     private String name;
-    private Type type;
+    private TypeProduct typeProduct;
     private double price;
 
-    public Product(int id, String name, Type type, double price) {
+    public Product(int id, String name, TypeProduct typeProduct, double price) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.typeProduct = typeProduct;
         this.price = price;
     }
 
@@ -30,12 +30,12 @@ public class Product {
         this.name = name;
     }
 
-    public Type getType() {
-        return type;
+    public TypeProduct getType() {
+        return typeProduct;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(TypeProduct typeProduct) {
+        this.typeProduct = typeProduct;
     }
 
     public double getPrice() {

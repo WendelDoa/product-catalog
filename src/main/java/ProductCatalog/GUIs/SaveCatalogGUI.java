@@ -10,5 +10,7 @@ public class SaveCatalogGUI extends JFrame {
 
     public SaveCatalogGUI(LogicalSystem mainSystem) {
         this.mainSystem = mainSystem;
+
+
     }
 }
