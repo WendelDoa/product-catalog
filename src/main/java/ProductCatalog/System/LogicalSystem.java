@@ -1,18 +1,57 @@
 package ProductCatalog.System;
 
-import ProductCatalog.Exceptions.ExceptionRegistrationError;
+import ProductCatalog.Exceptions.ProductNotFoundException;
+import ProductCatalog.Persistence.ConnectionDB;
+import ProductCatalog.Persistence.DaoProduct;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LogicalSystem {
 
-    private Map<Integer, Product> products = new HashMap<>();
+    private Map<Integer, Product> products;
+    private Map<Integer, Product> newProductsToDb;
     private int idCounter = 1;
+    DaoProduct daoProduct = new DaoProduct();
+
+    public LogicalSystem() throws SQLException {
+        this.products = new HashMap<>();
+        this.newProductsToDb = new HashMap<>();
+        recoverData();
+        idUptade();
+    }
+
+    public void idUptade() {
+        int productWithMaxId = 1;
+        for(Product p : products.values()) {
+            if(p.getId() >= productWithMaxId) {
+                productWithMaxId = p.getId()+1;
+            }
+        }
+        idCounter = productWithMaxId;
+    }
+
+    public String saveData() throws SQLException {
+        String resultOperation;
+        if(!newProductsToDb.isEmpty()) {
+            daoProduct.saveAllProducts(newProductsToDb);
+            newProductsToDb.clear();
+            resultOperation = "Products saved successfully!";
+        } else {
+            resultOperation = "The database is up to date!";
+        }
+        return resultOperation;
+    }
+
+    public void recoverData() throws SQLException {
+        this.products = daoProduct.recoverAllProducts();
+    }
 
     public void registerProduct(String name, TypeProduct typeProduct, double price) {
         Product newProduct = new Product(idCounter, name, typeProduct, price);
         products.put(idCounter, newProduct);
+        newProductsToDb.put(idCounter, newProduct);
         idCounter++;
     }
 
@@ -26,7 +65,33 @@ public class LogicalSystem {
         return productsFound;
     }
 
+    public void deleteProductById(int idProduct) throws ProductNotFoundException, SQLException {
+        if(products.get(idProduct) != null) {
+            products.remove(idProduct);
+            daoProduct.deleteProduct(idProduct);
+            idUptade();
+        } else {
+            throw new ProductNotFoundException("The product was not found!");
+        }
+        Map<Integer, Product> updatedProducts = new HashMap<>();
+
+        for (Product p : products.values()) {
+            updatedProducts.put(p.getId(), p);
+
+        }
+        products = updatedProducts;
+    }
+
+    public String getNameProductById(int idProduct) throws ProductNotFoundException {
+        if(products.get(idProduct) != null) {
+            return products.get(idProduct).getName();
+        } else {
+            throw new ProductNotFoundException("The product was not found!");
+        }
+    }
+
     public Map<Integer, Product> searchAllProducts() {
         return products;
     }
+
 }

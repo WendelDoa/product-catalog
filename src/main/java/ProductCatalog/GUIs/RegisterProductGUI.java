@@ -1,7 +1,6 @@
 package ProductCatalog.GUIs;
 
-import ProductCatalog.Controllers.BackController;
-import ProductCatalog.Exceptions.ExceptionRegistrationError;
+import ProductCatalog.Controllers.ExitController;
 import ProductCatalog.System.LogicalSystem;
 import ProductCatalog.System.TypeProduct;
 
@@ -102,11 +101,11 @@ public class RegisterProductGUI extends JFrame {
                         "to register the product!\nRemember the values must be written in the format 0.0");
             }
         });
-        JButton backButton = new JButton("Back");
-        backButton.setPreferredSize(new Dimension(200, 50));
-        backButton.addActionListener(new BackController(mainSystem, this));
+        JButton exitButton = new JButton("Exit");
+        exitButton.setPreferredSize(new Dimension(200, 50));
+        exitButton.addActionListener(new ExitController(mainSystem, this));
         row4.add(registerProductButton);
-        row4.add(backButton);
+        row4.add(exitButton);
         return row4;
     }
 }

@@ -1,6 +1,8 @@
 package ProductCatalog.System;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsSearchTableModel extends AbstractTableModel {
 
@@ -30,7 +32,9 @@ public class ProductsSearchTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Product product = mainSystem.searchProductWithName(text).get(rowIndex + 1); // IDs começam em 1
+        List<Product> productsList = new ArrayList<>(mainSystem.searchProductWithName(text).values());
+        Product product = productsList.get(rowIndex);
+
 
         return switch (columnIndex) {
             case 0 -> product.getId();

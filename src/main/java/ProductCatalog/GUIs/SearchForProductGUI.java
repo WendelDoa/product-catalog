@@ -1,9 +1,7 @@
 package ProductCatalog.GUIs;
 
-import ProductCatalog.Controllers.BackController;
-import ProductCatalog.System.CatalogTableModel;
+import ProductCatalog.Controllers.ExitController;
 import ProductCatalog.System.LogicalSystem;
-import ProductCatalog.System.ProductsSearchTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +13,6 @@ public class SearchForProductGUI extends JFrame {
 
     public SearchForProductGUI(LogicalSystem mainSystem) {
         this.mainSystem = mainSystem;
-
-        setVisible(true);
         setTitle("Search Product");
         setSize(300, 400);
         setLocationRelativeTo(null);
@@ -35,13 +31,14 @@ public class SearchForProductGUI extends JFrame {
         JButton searchButton = new JButton("Search");
         searchButton.setPreferredSize(new Dimension(200, 50));
         searchButton.addActionListener((ae) -> {
-            new ProductsFoundCatalogGUI(mainSystem);
+            ProductsFoundCatalogGUI productsFoundCatalogGUI = new ProductsFoundCatalogGUI(mainSystem);
+            productsFoundCatalogGUI.setVisible(true);
         });
-        JButton backButton = new JButton("Back");
-        backButton.setPreferredSize(new Dimension(200, 50));
-        backButton.addActionListener(new BackController(mainSystem,this));
+        JButton exitButton = new JButton("Exit");
+        exitButton.setPreferredSize(new Dimension(200, 50));
+        exitButton.addActionListener(new ExitController(mainSystem,this));
         row2.add(searchButton);
-        row2.add(backButton);
+        row2.add(exitButton);
         mainPanel.add(row2);
 
         add(mainPanel);

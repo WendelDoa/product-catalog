@@ -1,10 +1,12 @@
 package ProductCatalog.GUIs;
 
+import ProductCatalog.Controllers.SaveDataController;
 import ProductCatalog.System.LogicalSystem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class MainSystemGUI extends JFrame {
 
@@ -27,12 +29,12 @@ public class MainSystemGUI extends JFrame {
                 messageInitial = true;
             }
         });
-        addButtonFn("Product catalog", e -> new ProductCatalogGUI(mainSystem));
-        addButtonFn("Search for product", e -> new SearchForProductGUI(mainSystem));
+        addButtonFn("Product catalog", e -> productCatalog());
+        addButtonFn("Search for product", e -> searchForProduct());
         addButtonFn("Register product", e -> registerProduct());
         addButtonFn("Update product", e -> updateProduct());
         addButtonFn("Delete product", e -> deleteProduct());
-        addButtonFn("Save catalog", e -> saveCatalog());
+        addButtonFn("Save catalog", new SaveDataController(mainSystem));
         addButtonFn("Exit", e -> exit());
 
 
@@ -45,27 +47,30 @@ public class MainSystemGUI extends JFrame {
         add(button);
     }
 
+    private void productCatalog() {
+        ProductCatalogGUI productCatalogGUI = new ProductCatalogGUI(mainSystem);
+        productCatalogGUI.setVisible(true);
+        dispose();
+    }
+    private void searchForProduct() {
+        SearchForProductGUI searchForProductGUI = new SearchForProductGUI(mainSystem);
+        searchForProductGUI.setVisible(true);
+        dispose();
+    }
     private void registerProduct() {
         RegisterProductGUI registerProductGUI = new RegisterProductGUI(mainSystem);
         registerProductGUI.setVisible(true);
         dispose();
     }
-
     private void updateProduct() {
         UpdateProductGUI updateProductGUI = new UpdateProductGUI(mainSystem);
         updateProductGUI.setVisible(true);
         dispose();
     }
 
-    private void deleteProduct() {
+    public void deleteProduct() {
         DeleteProductGUI deleteProductGUI = new DeleteProductGUI(mainSystem);
         deleteProductGUI.setVisible(true);
-        dispose();
-    }
-
-    private void saveCatalog() {
-        SaveCatalogGUI saveCatalogGUI = new SaveCatalogGUI(mainSystem);
-        saveCatalogGUI.setVisible(true);
         dispose();
     }
 

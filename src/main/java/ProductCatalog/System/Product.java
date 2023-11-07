@@ -14,6 +14,10 @@ public class Product {
         this.price = price;
     }
 
+    public Product() {
+        this(0,"", null, 0.0);
+    }
+
     public int getId() {
         return id;
     }
