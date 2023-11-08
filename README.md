@@ -24,6 +24,6 @@
 4) After making all the necessary configurations, run the main class and enjoy 😁
 
 ### About me 👨‍💻
-Name: Wendel Soares Sampaio
-Age: 21y
-I'm Computer science student
++ Name: Wendel Soares Sampaio
++ Age: 21y
++ I'm Computer science student
