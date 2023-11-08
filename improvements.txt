@@ -1,0 +1,6 @@
+Esse programa foi projetado de maneira mais simples pois o fiz um estudo mas focado no banco de dados PostgreSQL e na biblioteca JDBC. O programa
+tem vários pontos a ser melhorado, como organização melhor do ID ou um sistema melhor dos controllers. Ele está bem padrão, então pode implementar
+novas funcionalidades no projeto, como por exemplo a função Update ou qualquer outra que se encaixe no contexto da ideia do programa. No codigo que
+desenvolvi, consegui captar apenas um bad smell que foi o Handling Exceptions Badly, ou seja algumas exceções não estão sendo tratadas de forma adequada
+ou não estão sendo tratadas de nenhuma forma, um bom exemplo disso é no metodo deleteProductById() onde pode ser lançada uma exceção generica que é a SQLException,
+não está sendo tratada essa exceção e portanto é um code smell.

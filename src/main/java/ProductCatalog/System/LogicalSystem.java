@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LogicalSystem {
+public class LogicalSystem implements LogicalSystemInterface {
 
     private Map<Integer, Product> products;
     private Map<Integer, Product> newProductsToDb;
@@ -22,6 +22,7 @@ public class LogicalSystem {
         idUptade();
     }
 
+    @Override
     public void idUptade() {
         int productWithMaxId = 1;
         for(Product p : products.values()) {
@@ -32,6 +33,7 @@ public class LogicalSystem {
         idCounter = productWithMaxId;
     }
 
+    @Override
     public String saveData() throws SQLException {
         String resultOperation;
         if(!newProductsToDb.isEmpty()) {
@@ -44,10 +46,12 @@ public class LogicalSystem {
         return resultOperation;
     }
 
+    @Override
     public void recoverData() throws SQLException {
         this.products = daoProduct.recoverAllProducts();
     }
 
+    @Override
     public void registerProduct(String name, TypeProduct typeProduct, double price) {
         Product newProduct = new Product(idCounter, name, typeProduct, price);
         products.put(idCounter, newProduct);
@@ -55,6 +59,7 @@ public class LogicalSystem {
         idCounter++;
     }
 
+    @Override
     public Map<Integer, Product> searchProductWithName(String name) {
         Map<Integer, Product> productsFound = new HashMap<>();
         for(Product p : products.values()) {
@@ -65,6 +70,7 @@ public class LogicalSystem {
         return productsFound;
     }
 
+    @Override
     public void deleteProductById(int idProduct) throws ProductNotFoundException, SQLException {
         if(products.get(idProduct) != null) {
             products.remove(idProduct);
@@ -82,6 +88,7 @@ public class LogicalSystem {
         products = updatedProducts;
     }
 
+    @Override
     public String getNameProductById(int idProduct) throws ProductNotFoundException {
         if(products.get(idProduct) != null) {
             return products.get(idProduct).getName();
@@ -90,6 +97,7 @@ public class LogicalSystem {
         }
     }
 
+    @Override
     public Map<Integer, Product> searchAllProducts() {
         return products;
     }
